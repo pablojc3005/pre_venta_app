@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pre_venta_app">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="Android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="APP CLARIDAD"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".Presentacion.an_presupuesto"></activity>
+        <activity android:name=".Presentacion.an_transportista" />
+        <activity
+            android:name=".Presentacion.an_lista_productos"
+            android:label="@string/title_activity_an_lista_productos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Presentacion.an_lista_clientes" />
+        <activity android:name=".Presentacion.an_lista_transportita" />
+        <activity android:name=".Presentacion.an_cliente" />
+        <activity android:name=".Presentacion.an_menu" />
+        <activity android:name=".Presentacion.MainActivity" />
+        <activity android:name=".Presentacion.an_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
