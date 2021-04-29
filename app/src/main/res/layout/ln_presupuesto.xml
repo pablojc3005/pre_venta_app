@@ -103,7 +103,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvitem"
+                        android:id="@+id/tvnom_cliente"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_weight="1"

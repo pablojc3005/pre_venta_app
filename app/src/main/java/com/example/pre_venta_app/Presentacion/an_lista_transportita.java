@@ -49,6 +49,11 @@ public class an_lista_transportita extends AppCompatActivity implements adp_list
             }
         });
 
+        // SI SOLO ES LISTA SE OCULTA EK BOTON FLOTANTE
+        if (an_presupuesto.est_seleccion_transporte){
+            fab.hide();
+        }
+
     }
 
     private void initViews() {
@@ -83,7 +88,10 @@ public class an_lista_transportita extends AppCompatActivity implements adp_list
 
     @Override
     public void itemClick(Transportista item) {
-        an_presupuesto.tvtransportista.setText(item.getDes_transportista());
+        if (an_presupuesto.est_seleccion_transporte){
+            an_presupuesto.tvtransportista.setText(item.getDes_transportista());
+        }
+        an_presupuesto.est_seleccion_cliente = false;
         finish();
     }
 

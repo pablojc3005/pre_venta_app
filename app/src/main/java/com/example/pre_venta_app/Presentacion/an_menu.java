@@ -68,8 +68,7 @@ public class an_menu extends AppCompatActivity {
         cv_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent f = new Intent(context, MainActivity.class);
-                startActivity(f);
+
             }
         });
 

@@ -40,4 +40,28 @@ public class DArticulo {
         return  lista;
     }
 
+    public static Integer Existe_articulo(String cod_articulo){
+        int result = 0;
+        String sql = "select count(*) from Articulos where rtrim(ltrim(CodArticulo)) = rtrim(ltrim(?));";
+
+        ResultSet rs;
+        try {
+            Connection cn = Conexion.Conectar();
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setString(1,cod_articulo);
+            rs = pst.executeQuery();
+            rs.next();
+            result = rs.getInt(1);
+            cn.close();
+        }
+        catch (java.sql.SQLException e)
+        {
+            System.out.println("Excepcion 01 - CapturaId "+ e.toString());
+        }
+        catch (Exception e) {
+            System.out.println("Excepcion 02 - CapturaId "+ e.toString());
+        }
+        return result;
+    }
+
 }

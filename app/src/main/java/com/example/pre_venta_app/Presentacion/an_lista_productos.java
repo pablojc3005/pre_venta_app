@@ -68,9 +68,7 @@ public class an_lista_productos extends AppCompatActivity implements adp_lista_a
 
     @Override
     public void itemClick(Articulo item) {
-        /*an_presupuesto.tvcod_cliente.setText(item.getCod_cliente());
-        an_presupuesto.tvruc.setText(item.getRuc());
-        an_presupuesto.tvcliente.setText(item.getDes_cliente());*/
+        an_presupuesto.etcod_Articulo.setText(item.getCod_articulo()+"="+item.getDesc_articulo());
         finish();
     }
 

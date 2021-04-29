@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pre_venta_app.Entidad.Transportista;
+import com.example.pre_venta_app.Presentacion.an_cliente;
+import com.example.pre_venta_app.Presentacion.an_presupuesto;
 import com.example.pre_venta_app.Presentacion.an_transportista;
 import com.example.pre_venta_app.R;
 
@@ -51,10 +53,14 @@ public class adp_lista_transportista extends RecyclerView.Adapter<adp_lista_tran
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), an_transportista.class);
-                intent.putExtra("itemDetail", item);
-                holder.itemView.getContext().startActivity(intent);
-                flag_modificar = true;
+                if (an_presupuesto.est_seleccion_transporte){
+                    itemClick.itemClick(item);
+                }else{
+                    Intent intent = new Intent(holder.itemView.getContext(), an_transportista.class);
+                    intent.putExtra("itemDetail", item);
+                    holder.itemView.getContext().startActivity(intent);
+                    flag_modificar = true;
+                }
             }
         });
     }

@@ -50,6 +50,11 @@ public class an_lista_clientes extends AppCompatActivity implements adp_lista_cl
             }
         });
 
+        // SI SOLO ES LISTA SE OCULTA EK BOTON FLOTANTE
+        if (an_presupuesto.est_seleccion_cliente){
+            fab.hide();
+        }
+
     }
 
     private void initViews() {
@@ -83,16 +88,12 @@ public class an_lista_clientes extends AppCompatActivity implements adp_lista_cl
 
     @Override
     public void itemClick(Cliente item) {
-        Log.e("est_cliente", String.valueOf(an_presupuesto.est_seleccion_cliente));
         if (an_presupuesto.est_seleccion_cliente){
-            an_presupuesto.tvcliente.setText(item.getDes_cliente());
-            an_presupuesto.est_seleccion_cliente = false;
-        }else{
             an_presupuesto.tvcod_cliente.setText(item.getCod_cliente());
             an_presupuesto.tvruc.setText(item.getRuc());
             an_presupuesto.tvcliente.setText(item.getDes_cliente());
         }
-
+        an_presupuesto.est_seleccion_cliente = false;
         finish();
     }
 

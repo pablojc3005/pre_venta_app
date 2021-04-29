@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pre_venta_app.Entidad.Articulo;
 import com.example.pre_venta_app.Presentacion.an_cliente;
+import com.example.pre_venta_app.Presentacion.an_presupuesto;
 import com.example.pre_venta_app.R;
 
 import java.util.ArrayList;
@@ -48,15 +49,12 @@ public class adp_lista_articulos extends RecyclerView.Adapter<adp_lista_articulo
         holder.tvcod_und.setText(item.getCod_und());
         holder.tvdes_und.setText(item.getUnd_medida());
 
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), an_cliente.class);
-                intent.putExtra("itemDetail", item);
-                holder.itemView.getContext().startActivity(intent);
-                flag_modificar = true;
+                itemClick.itemClick(item);
             }
-        });*/
+        });
     }
 
     @Override
