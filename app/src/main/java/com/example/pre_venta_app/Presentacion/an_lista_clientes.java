@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 
 import com.example.pre_venta_app.Adapter.adp_lista_clientes;
@@ -82,9 +83,16 @@ public class an_lista_clientes extends AppCompatActivity implements adp_lista_cl
 
     @Override
     public void itemClick(Cliente item) {
-        an_presupuesto.tvcod_cliente.setText(item.getCod_cliente());
-        an_presupuesto.tvruc.setText(item.getRuc());
-        an_presupuesto.tvcliente.setText(item.getDes_cliente());
+        Log.e("est_cliente", String.valueOf(an_presupuesto.est_seleccion_cliente));
+        if (an_presupuesto.est_seleccion_cliente){
+            an_presupuesto.tvcliente.setText(item.getDes_cliente());
+            an_presupuesto.est_seleccion_cliente = false;
+        }else{
+            an_presupuesto.tvcod_cliente.setText(item.getCod_cliente());
+            an_presupuesto.tvruc.setText(item.getRuc());
+            an_presupuesto.tvcliente.setText(item.getDes_cliente());
+        }
+
         finish();
     }
 

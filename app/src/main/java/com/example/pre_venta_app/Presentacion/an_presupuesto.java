@@ -21,6 +21,7 @@ public class an_presupuesto extends AppCompatActivity {
 
     Button btncliente, btntransportista, btnarticulo, btnguardar, btnsalir;
     public static TextView tvcod_cliente, tvruc, tvcliente, tvtransportista;
+    public static boolean est_seleccion_cliente = false;
     TextView tvcod_presupuesto, tvigv, tvsub_total, tvtotal;
     EditText etcod_Articulo;
     Spinner spforma_pago;
@@ -59,6 +60,7 @@ public class an_presupuesto extends AppCompatActivity {
         btncliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                est_seleccion_cliente = true;
                 Intent f = new Intent(context, an_lista_clientes.class);
                 startActivity(f);
             }
