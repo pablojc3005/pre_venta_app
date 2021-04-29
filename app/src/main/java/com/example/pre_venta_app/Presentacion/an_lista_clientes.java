@@ -54,7 +54,6 @@ public class an_lista_clientes extends AppCompatActivity implements adp_lista_cl
         if (an_presupuesto.est_seleccion_cliente){
             fab.hide();
         }
-
     }
 
     private void initViews() {

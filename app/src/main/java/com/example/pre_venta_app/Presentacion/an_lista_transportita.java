@@ -91,7 +91,7 @@ public class an_lista_transportita extends AppCompatActivity implements adp_list
         if (an_presupuesto.est_seleccion_transporte){
             an_presupuesto.tvtransportista.setText(item.getDes_transportista());
         }
-        an_presupuesto.est_seleccion_cliente = false;
+        an_presupuesto.est_seleccion_transporte = false;
         finish();
     }
 

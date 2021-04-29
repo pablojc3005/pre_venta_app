@@ -52,6 +52,7 @@ public class an_menu extends AppCompatActivity {
         cv_agencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                an_presupuesto.est_seleccion_transporte = false;
                 Intent f = new Intent(context, an_lista_transportita.class);
                 startActivity(f);
             }
@@ -60,6 +61,7 @@ public class an_menu extends AppCompatActivity {
         cv_cliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                an_presupuesto.est_seleccion_cliente = false;
                 Intent f = new Intent(context, an_lista_clientes.class);
                 startActivity(f);
             }
