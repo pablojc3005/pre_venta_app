@@ -1,5 +1,7 @@
 package com.example.pre_venta_app.Entidad;
 
+import java.util.List;
+
 public class Guia {
     int cod_registro;
     String cod_almacen;
@@ -13,6 +15,8 @@ public class Guia {
     Double total;
     String status_registro;
     String tipo_guia_imp;
+
+    List<Detalle_guia> lista_detalle;
 
     public int getCod_registro() {
         return cod_registro;
@@ -110,6 +114,16 @@ public class Guia {
         this.tipo_guia_imp = tipo_guia_imp;
     }
 
+    public List<Detalle_guia> getLista_detalle() {
+        return lista_detalle;
+    }
+
+    public void setLista_detalle(List<Detalle_guia> lista_detalle) {
+        this.lista_detalle = lista_detalle;
+    }
+
+    public Guia() {
+    }
     public Guia(int cod_registro, String cod_almacen, String tipo_movimiento, String codcliente, String cod_moneda, String codtransportis, String codFormaPago, Double sub_total, Double igv, Double total, String status_registro, String tipo_guia_imp) {
         this.cod_registro = cod_registro;
         this.cod_almacen = cod_almacen;
@@ -125,8 +139,5 @@ public class Guia {
         this.tipo_guia_imp = tipo_guia_imp;
     }
 
-    public Guia() {
 
-
-    }
 }

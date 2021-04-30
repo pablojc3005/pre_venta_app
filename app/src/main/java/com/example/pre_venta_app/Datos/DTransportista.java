@@ -9,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -36,6 +37,32 @@ public class DTransportista {
             Log.e("Excepcion 02", e.toString());
         }
         return  lista;
+    }
+
+    public static String Codigo_transportista(String transportista)
+    {
+        String cod_trabajador = "";
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            cn = Conexion.Conectar();
+            String sql = "select CodTransportis from Trasnportistas where DesTransportis = ?";
+            pst = cn.prepareStatement(sql);
+            pst.setString(1, transportista);
+            rs = pst.executeQuery();
+            rs.next();
+            cod_trabajador = rs.getString(1);
+            cn.close();
+        } catch (SQLException e) {
+            Log.e("Error : ", e.getMessage());
+            try {
+                cn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return cod_trabajador;
     }
 
     public static String Insertar_transportista(Transportista c) {

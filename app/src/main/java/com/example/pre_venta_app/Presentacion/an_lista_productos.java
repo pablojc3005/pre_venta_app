@@ -69,6 +69,7 @@ public class an_lista_productos extends AppCompatActivity implements adp_lista_a
     @Override
     public void itemClick(Articulo item) {
         an_presupuesto.etcod_Articulo.setText(item.getCod_articulo()+"="+item.getDesc_articulo());
+        an_presupuesto.precio = item.getPrecio();
         finish();
     }
 

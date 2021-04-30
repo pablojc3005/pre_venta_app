@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
@@ -21,12 +22,17 @@ import android.widget.Toast;
 
 import com.example.pre_venta_app.Datos.DArticulo;
 import com.example.pre_venta_app.Datos.DGuia;
+import com.example.pre_venta_app.Datos.DTransportista;
 import com.example.pre_venta_app.Entidad.Detalle_guia;
+import com.example.pre_venta_app.Entidad.Guia;
 import com.example.pre_venta_app.R;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class an_presupuesto extends AppCompatActivity {
 
@@ -35,14 +41,16 @@ public class an_presupuesto extends AppCompatActivity {
     public static boolean est_seleccion_cliente = false, est_seleccion_transporte = false;
     TextView tvcod_presupuesto, tvigv, tvsub_total, tvtotal;
     public static EditText etcod_Articulo;
+    public  static Double precio;
     ArrayAdapter<String> myAdapter_forma_pago;
     Detalle_guia d = null;
     ArrayList<Detalle_guia> arreglo_det_guia = new ArrayList<Detalle_guia>();
     ArrayAdapter<Detalle_guia> adaptador_guia;
+    Guia g = null;
     Spinner spforma_pago;
     ListView lvlista_articulo;
-    String cod_articulo = "", nom_articulo = "";
-    Double Importe = 0d;
+    String mensaje = "", cod_articulo = "", nom_articulo = "";
+    Double Subtotal = 0d, Igv = 0d, Total = 0d;
     Context context;
 
     @Override
@@ -100,15 +108,63 @@ public class an_presupuesto extends AppCompatActivity {
         btnarticulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                precio = 0d;
+                Log.e("precio 0 ", String.valueOf(precio));
                 Intent f = new Intent(context, an_lista_productos.class);
                 startActivity(f);
-        }
+                Log.e("precio 1 ", String.valueOf(precio));
+            }
         });
 
         btnguardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                SweetAlertDialog dialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
+                dialog.setTitleText("¿ ESTA SEGURO QUE DESEA GENERAR EL PRESUPUESTO ?");
+                dialog.setConfirmText("SI");
+                dialog.setCancelable(false);
+                dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+
+                        if(tvcod_cliente.getText().toString().length() == 0)
+                        {
+                            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE).setTitleText("Seleccione el Cliente").show();
+                            sDialog.dismissWithAnimation();
+                            return;
+                        }
+
+                        if(tvtransportista.getText().toString().length() == 0)
+                        {
+                            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE).setTitleText("Seleccione el Transportista").show();
+                            sDialog.dismissWithAnimation();
+                            return;
+                        }
+
+                        if(spforma_pago.getSelectedItem().toString().length() == 0)
+                        {
+                            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE).setTitleText("Seleccione el Vendedor").show();
+                            sDialog.dismissWithAnimation();
+                            return;
+                        }
+
+                        if (lvlista_articulo.getCount() == 0)
+                        {
+                            new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE).setTitleText("Ingrese los Articulos para la Venta").show();
+                            sDialog.dismissWithAnimation();
+                            return;
+                        }
+                        new Generar_Presupuesto(context).execute();
+                        sDialog.dismissWithAnimation();
+
+                    }
+                }).setCancelButton("NO", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                }).show();
             }
         });
 
@@ -142,11 +198,14 @@ public class an_presupuesto extends AppCompatActivity {
     }
 
     public void Agregar() {
+
         cod_articulo = etcod_Articulo.getText().toString().substring(0, etcod_Articulo.getText().toString().indexOf("="));
         nom_articulo = etcod_Articulo.getText().toString().substring((etcod_Articulo.getText().toString().indexOf("=")+1), etcod_Articulo.getText().toString().length());
 
         boolean repetido = false;
-        Importe = 0d;
+        Subtotal = 0d;
+        Igv = 0d;
+        Total = 0d;
 
         if(cod_articulo.length() == 0)
         {
@@ -154,7 +213,7 @@ public class an_presupuesto extends AppCompatActivity {
             return;
         }
 
-        Log.e("tamano lista ", String.valueOf(arreglo_det_guia.size()));
+        Log.e("tamaño lista ", String.valueOf(arreglo_det_guia.size()));
         if(arreglo_det_guia.size() > 0) {
             for (int i = 0; i < arreglo_det_guia.size(); i++) {
                 if (arreglo_det_guia.get(i).getCod_articulo().trim().equals(cod_articulo)) {
@@ -166,7 +225,7 @@ public class an_presupuesto extends AppCompatActivity {
                     }
                 }
             }
-        }else{
+        } else {
             if(DArticulo.Existe_articulo(cod_articulo) == 0){
                 Toast.makeText(context, "CODIGO DE ARTICULO "+cod_articulo+" NO EXISTE EN LA LISTA", Toast.LENGTH_SHORT).show();
                 return;
@@ -181,25 +240,29 @@ public class an_presupuesto extends AppCompatActivity {
             }
             //precio = String.valueOf(DArticulo.Precio_articulo(cod_articulo));
             d = new Detalle_guia();
-            d.setCod_registro("1");
+            //d.setCod_registro("1");
             d.setSecuencia(String.valueOf(item));
             d.setCod_articulo(cod_articulo);
             d.setArticulo(nom_articulo);
             d.setCantidad("1.00");
-            d.setPrecio("1.00");
+            d.setPrecio(String.valueOf(precio));
             arreglo_det_guia.add(d);
         }
 
         // para el importe
         etcod_Articulo.setText("");
         for (int f = 0; f < arreglo_det_guia.size(); f++) {
-            arreglo_det_guia.get(f).getCantidad();
-            Importe += (Double.parseDouble(arreglo_det_guia.get(f).getPrecio()) * Double.parseDouble(arreglo_det_guia.get(f).getCantidad()));
+            //arreglo_det_guia.get(f).getCantidad();
+            Total += (Double.parseDouble(arreglo_det_guia.get(f).getPrecio()) * Double.parseDouble(arreglo_det_guia.get(f).getCantidad()));
+            Igv += Total * 0.18;
+            Subtotal += Total - Igv;
         }
+
         adaptador_guia = new myListAdapter_detalle_guia();
         lvlista_articulo.setAdapter(adaptador_guia);
-
-        tvtotal.setText( String.valueOf(Importe));
+        tvsub_total.setText( String.valueOf(Subtotal));
+        tvigv.setText(String.valueOf(Igv));
+        tvtotal.setText(String.valueOf(Total));
     }
 
     private class myListAdapter_detalle_guia extends ArrayAdapter<Detalle_guia> {
@@ -240,6 +303,67 @@ public class an_presupuesto extends AppCompatActivity {
                 Toast.makeText(an_presupuesto.this, "myListAdapter_Detalle_venta / " + ex.getMessage(), Toast.LENGTH_LONG).show();
             }
             return itemView;
+        }
+    }
+
+    private class Generar_Presupuesto extends AsyncTask<Integer, Void, Integer> {
+        Context context;
+        SweetAlertDialog pdialog;
+
+        public Generar_Presupuesto(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pdialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+            pdialog.setTitle("CARGANDO...");
+            pdialog.setContentText("ESPERE POR FAVOR, SE ESTAN GUARDANDO LOS DATOS...");
+            pdialog.setCancelable(false);
+            pdialog.show();
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            //try {
+                g = new Guia();
+                g.setCodcliente(tvcod_cliente.getText().toString().trim());
+                g.setCodtransportis(DTransportista.Codigo_transportista(tvtransportista.getText().toString().trim()));
+                g.setCodFormaPago(spforma_pago.getSelectedItem().toString().substring(0,2));
+                g.setSub_total(Double.parseDouble(tvsub_total.getText().toString()));
+                g.setIgv(Double.parseDouble(tvigv.getText().toString()));
+                g.setTotal(Double.parseDouble(tvtotal.getText().toString()));
+
+                List<Detalle_guia> lista = new ArrayList<Detalle_guia>();
+
+                Log.e("lista det", String.valueOf(arreglo_det_guia.size()));
+
+                for (int i = 0; i < arreglo_det_guia.size(); i++)
+                {
+                    d = new Detalle_guia();
+                    d.setSecuencia(arreglo_det_guia.get(i).getSecuencia());
+                    d.setCod_articulo(arreglo_det_guia.get(i).getCod_articulo());
+                    //d.setArticulo(arreglo_det_guia.get(i).getArticulo());
+                    d.setCantidad(arreglo_det_guia.get(i).getCantidad());
+                    d.setPrecio(arreglo_det_guia.get(i).getPrecio());
+                    lista.add(d);
+                }
+                g.setLista_detalle(lista);
+
+                if (DGuia.Guardar_guia(g)) {
+                    mensaje = "PRESUPUESTO GENERADO CORRECTAMENTE...";
+                }
+
+            /*} catch (Exception e) {
+                Log.e("ERROR DE ASINCRONIA", e.toString());
+            }*/
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer i) {
+            pdialog.dismiss();
+            new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE).setTitleText(mensaje).show();
         }
     }
 }

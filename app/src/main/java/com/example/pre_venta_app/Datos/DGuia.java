@@ -2,6 +2,7 @@ package com.example.pre_venta_app.Datos;
 
 import android.util.Log;
 
+import com.example.pre_venta_app.Entidad.Detalle_guia;
 import com.example.pre_venta_app.Entidad.Guia;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class DGuia {
 
-    /*public static boolean Guardar_guia(Guia v)
+    public static boolean Guardar_guia(Guia v)
     {
         Integer r = 0, r2 = 0, maxId = 0;
         Connection cn = null;
@@ -21,47 +22,45 @@ public class DGuia {
         ResultSet rs;
         try{
             cn = Conexion.Conectar();
-            String sql = "{call usp_inserta_venta_pre(?,?,?,?,?,?,?)}";
+            String sql = "{call usp_insertar_guia_cab(?,?,?,?,?,?)}";
             pst = cn.prepareCall(sql);
-            pst.setString(1, v.getCod_cliente());
-            System.out.println("cod_cliente "+ v.getCod_cliente());
-            pst.setString(2, v.getNom_cliente());
-            System.out.println("nom_cliente "+ v.getNom_cliente());
-            pst.setInt(3, v.getCod_vendedor());
-            System.out.println("cod_vendedor "+ v.getCod_vendedor());
-            pst.setString(4, v.getTipo_despacho());
-            System.out.println("tipo_despacho "+ v.getTipo_despacho());
-            pst.setString(5, v.getTipo_pedido());
-            System.out.println("tipo_pedido "+ v.getTipo_pedido());
-            pst.setString(6, v.getTipo_doc());
-            System.out.println("tipo_doc "+ v.getTipo_doc());
-            pst.setInt(7, v.getEnvio_email());
-            System.out.println("envio_email "+ v.getEnvio_email());
+            pst.setString(1, v.getCodcliente());
+            System.out.println("Codcliente "+ v.getCodcliente());
+            pst.setString(2, v.getCodtransportis());
+            System.out.println("Codtransportis "+ v.getCodtransportis());
+            pst.setString(3, v.getCodFormaPago());
+            System.out.println("CodFormaPago "+ v.getCodFormaPago());
+            pst.setDouble(4, v.getSub_total());
+            System.out.println("Sub_total "+ v.getSub_total());
+            pst.setDouble(5, v.getIgv());
+            System.out.println("Igv "+ v.getIgv());
+            pst.setDouble(6, v.getTotal());
+            System.out.println("Total "+ v.getTotal());
             r = pst.executeUpdate() ;
             r = 1;
 
-            String sql2 = "select max(docentry) from odrf;";
+            String sql2 = "select max(cod_registro) from Guias_Remision_Cab;";
             ps2 = cn.prepareStatement(sql2);
             rs = ps2.executeQuery();
             rs.next();
             maxId = rs.getInt(1);
             System.out.println("maxId " + String.valueOf(maxId));
 
-            String sql3 = "{call usp_inserta_venta_det_pre(?,?,?,?,?,?)}";
+            String sql3 = "{call usp_insertar_guia_det(?,?,?,?,?)}";
             pst3 = cn.prepareCall(sql3);
-            for ( Detalle_venta d : v.getLista_detalle())
+            for ( Detalle_guia d : v.getLista_detalle())
             {
                 pst3.setString(1, String.valueOf(maxId));
                 System.out.println("ID "+ String.valueOf(maxId));
-                pst3.setString(2, d.getItem());
-                System.out.println("Item "+ d.getItem());
+                pst3.setString(2, d.getSecuencia());
+                System.out.println("Secuencia "+ d.getSecuencia());
                 pst3.setString(3, d.getCod_articulo());
                 System.out.println("Cod_articulo "+ d.getCod_articulo());
-                pst3.setString(4, d.getDesc_articulo());
-                System.out.println("Desc_articulo "+ d.getDesc_articulo());
-                pst3.setString(5, d.getCantidad());
+                /*pst3.setString(4, d.getArticulo());
+                System.out.println("Desc_articulo "+ d.getArticulo());*/
+                pst3.setString(4, d.getCantidad());
                 System.out.println("Cantidad "+ d.getCantidad());
-                pst3.setString(6, d.getPrecio());
+                pst3.setString(5, d.getPrecio());
                 System.out.println("Precio "+ d.getPrecio());
                 r2 = pst3.executeUpdate();
             }
@@ -71,7 +70,7 @@ public class DGuia {
             System.out.print("Error waxx "+ e.toString());
         }
         return r == 1 && r2 == 1 ? true:false;
-    }*/
+    }
 
     public static ArrayList<String> Lista_forma_pago() {
         ArrayList<String> lista = new ArrayList<>();
@@ -82,7 +81,7 @@ public class DGuia {
             ResultSet rs = pst.executeQuery();
             while (rs.next())
             {
-                lista.add(rs.getString(2));
+                lista.add(rs.getString(1)+" - "+rs.getString(2));
             }
         }
         catch (java.sql.SQLException e)
