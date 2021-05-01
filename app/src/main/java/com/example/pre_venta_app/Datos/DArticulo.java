@@ -64,4 +64,31 @@ public class DArticulo {
         return result;
     }
 
+    public static Float Precio_articulo(String cod_articulo){
+        float result = 0;
+        //String sql = "select SalFactor1 from oitm where rtrim(ltrim(itemcode)) = rtrim(ltrim(?));";
+        String sql = "exec USP_STOCK_PRECIO ?;";
+
+        ResultSet rs;
+        try {
+            Connection cn = Conexion.Conectar();
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setString(1,cod_articulo);
+            Log.e("cod_articulo", cod_articulo);
+            rs = pst.executeQuery();
+            rs.next();
+            result = rs.getFloat(1);
+            Log.e("precio", rs.toString());
+            cn.close();
+        }
+        catch (java.sql.SQLException e)
+        {
+            System.out.println("Excepcion 01 - CapturaId "+ e.toString());
+        }
+        catch (Exception e) {
+            System.out.println("Excepcion 02 - CapturaId "+ e.toString());
+        }
+        return result;
+    }
+
 }
