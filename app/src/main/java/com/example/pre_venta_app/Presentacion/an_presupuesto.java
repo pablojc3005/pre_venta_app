@@ -41,7 +41,7 @@ public class an_presupuesto extends AppCompatActivity {
     public static boolean est_seleccion_cliente = false, est_seleccion_transporte = false;
     TextView tvcod_presupuesto, tvigv, tvsub_total, tvtotal;
     public static EditText etcod_Articulo;
-    public  static Double precio;
+    public  static Double precio = 0d;
     ArrayAdapter<String> myAdapter_forma_pago;
     Detalle_guia d = null;
     ArrayList<Detalle_guia> arreglo_det_guia = new ArrayList<Detalle_guia>();
@@ -49,7 +49,8 @@ public class an_presupuesto extends AppCompatActivity {
     Guia g = null;
     Spinner spforma_pago;
     ListView lvlista_articulo;
-    String mensaje = "", cod_articulo = "", nom_articulo = "";
+    String mensaje = "";
+    public static String cod_articulo = "", nom_articulo = "";
     Double Subtotal = 0d, Igv = 0d, Total = 0d;
     Context context;
 
@@ -108,11 +109,7 @@ public class an_presupuesto extends AppCompatActivity {
         btnarticulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                precio = 0d;
-                Log.e("precio 0 ", String.valueOf(precio));
-                Intent f = new Intent(context, an_lista_productos.class);
-                startActivity(f);
-                Log.e("precio 1 ", String.valueOf(precio));
+                Agregar();
             }
         });
 
@@ -188,10 +185,10 @@ public class an_presupuesto extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.e("S : ", s.toString());
+                /*Log.e("S : ", s.toString());
                 if (s.length() >= 8){
                     Agregar();
-                }
+                }*/
             }
         });
 
@@ -199,19 +196,22 @@ public class an_presupuesto extends AppCompatActivity {
 
     public void Agregar() {
 
-        cod_articulo = etcod_Articulo.getText().toString().substring(0, etcod_Articulo.getText().toString().indexOf("="));
-        nom_articulo = etcod_Articulo.getText().toString().substring((etcod_Articulo.getText().toString().indexOf("=")+1), etcod_Articulo.getText().toString().length());
+        //cod_articulo = etcod_Articulo.getText().toString().substring(0, etcod_Articulo.getText().toString().indexOf("="));
+        //nom_articulo = etcod_Articulo.getText().toString().substring((etcod_Articulo.getText().toString().indexOf("=")+1), etcod_Articulo.getText().toString().length());
+
+        Intent f2 = new Intent(context, an_lista_productos.class);
+        startActivity(f2);
 
         boolean repetido = false;
         Subtotal = 0d;
         Igv = 0d;
         Total = 0d;
 
-        if(cod_articulo.length() == 0)
+        /*if(cod_articulo.length() == 0)
         {
             Toast.makeText(context, "INGRESE UN CODIDO DE ARTICULO VALIDO", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
 
         Log.e("tamaño lista ", String.valueOf(arreglo_det_guia.size()));
         if(arreglo_det_guia.size() > 0) {
@@ -245,12 +245,13 @@ public class an_presupuesto extends AppCompatActivity {
             d.setCod_articulo(cod_articulo);
             d.setArticulo(nom_articulo);
             d.setCantidad("1.00");
+            Log.e("preco", String.valueOf(precio));
             d.setPrecio(String.valueOf(precio));
             arreglo_det_guia.add(d);
         }
 
         // para el importe
-        etcod_Articulo.setText("");
+        //etcod_Articulo.setText("");
         for (int f = 0; f < arreglo_det_guia.size(); f++) {
             //arreglo_det_guia.get(f).getCantidad();
             Total += (Double.parseDouble(arreglo_det_guia.get(f).getPrecio()) * Double.parseDouble(arreglo_det_guia.get(f).getCantidad()));

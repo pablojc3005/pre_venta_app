@@ -3,21 +3,18 @@ package com.example.pre_venta_app.Presentacion;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pre_venta_app.Adapter.adp_lista_clientes;
 import com.example.pre_venta_app.Datos.DCliente;
-import com.example.pre_venta_app.Datos.Dlogin;
 import com.example.pre_venta_app.Entidad.Cliente;
 import com.example.pre_venta_app.R;
-
-import org.w3c.dom.Text;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -40,7 +37,7 @@ public class an_cliente extends AppCompatActivity {
         tvruc = (TextView) findViewById(R.id.txtruc);
         tv_razon_social = (TextView) findViewById(R.id.txtrazon_social);
         tvdireccion = (TextView) findViewById(R.id.txtdireccion);
-        tvtelefono = (TextView) findViewById(R.id.txttelefono);
+        tvtelefono = (TextView) findViewById(R.id.txtcod_cliente);
         tvcorreo = (TextView) findViewById(R.id.txtcorreo);
         tvcontacto = (TextView) findViewById(R.id.txtcontacto);
 
@@ -66,6 +63,8 @@ public class an_cliente extends AppCompatActivity {
                 adp_lista_clientes.flag_modificar = false;
             }
         });
+
+
 
         btnguardar.setOnClickListener(new View.OnClickListener() {
             @Override

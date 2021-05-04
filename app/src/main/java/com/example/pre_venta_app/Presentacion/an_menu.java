@@ -14,7 +14,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class an_menu extends AppCompatActivity {
 
-    CardView cv_stock, cv_presupuesto, cv_agencia, cv_cliente, cv_usuario, cv_salir;
+    CardView cv_stock, cv_presupuesto, cv_agencia, cv_cliente, cv_sucursal, cv_salir;
     Context context;
 
     @Override
@@ -30,7 +30,7 @@ public class an_menu extends AppCompatActivity {
         cv_presupuesto = (CardView) findViewById(R.id.cvpresupuesto);
         cv_agencia     = (CardView) findViewById(R.id.cvagencia_tra);
         cv_cliente     = (CardView) findViewById(R.id.cvcliente);
-        cv_usuario     = (CardView) findViewById(R.id.cvsucursal);
+        cv_sucursal    = (CardView) findViewById(R.id.cvsucursal);
         cv_salir       = (CardView) findViewById(R.id.cvsalir);
 
         cv_stock.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +67,11 @@ public class an_menu extends AppCompatActivity {
             }
         });
 
-        cv_usuario.setOnClickListener(new View.OnClickListener() {
+        cv_sucursal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent f = new Intent(context, an_lista_sucursal.class);
+                startActivity(f);
             }
         });
 

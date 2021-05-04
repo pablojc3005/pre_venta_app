@@ -156,7 +156,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txttelefono"
+                android:id="@+id/txtcod_cliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

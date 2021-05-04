@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pre_venta_app.Entidad.Cliente;
 import com.example.pre_venta_app.Presentacion.an_cliente;
 import com.example.pre_venta_app.Presentacion.an_presupuesto;
+import com.example.pre_venta_app.Presentacion.an_sucursal;
 import com.example.pre_venta_app.R;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class adp_lista_clientes extends RecyclerView.Adapter<adp_lista_clientes.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (an_presupuesto.est_seleccion_cliente){
+                if (an_presupuesto.est_seleccion_cliente || an_sucursal.est_seleccion_cliente2){
                     itemClick.itemClick(item);
                 }else{
                     Intent intent = new Intent(holder.itemView.getContext(), an_cliente.class);

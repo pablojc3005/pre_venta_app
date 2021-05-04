@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentacion.an_lista_clientes">
+    tools:context=".Presentacion.an_lista_sucursal">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabcliente"
+        android:id="@+id/fabsucursal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/ic_agregar" />
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_cliente"
+        android:id="@+id/search_sucursal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:iconifiedByDefault="false"
@@ -31,14 +31,14 @@
         app:queryHint="Buscar titulo" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lv_lista_cliente"
+        android:id="@+id/lv_lista_sucursal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_cliente"
+        app:layout_constraintTop_toBottomOf="@+id/search_sucursal"
         app:layout_constraintVertical_bias="0.0" />
 
 

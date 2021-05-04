@@ -1,6 +1,8 @@
 package com.example.pre_venta_app.Entidad;
 
-public class Sucursal {
+import java.io.Serializable;
+
+public class Sucursal implements Serializable {
 
     String cod_cliente;
     String desc_cliente;

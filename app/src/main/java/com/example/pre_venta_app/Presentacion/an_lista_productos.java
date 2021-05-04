@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -68,8 +69,11 @@ public class an_lista_productos extends AppCompatActivity implements adp_lista_a
 
     @Override
     public void itemClick(Articulo item) {
-        an_presupuesto.etcod_Articulo.setText(item.getCod_articulo()+"="+item.getDesc_articulo());
+        //an_presupuesto.etcod_Articulo.setText(item.getCod_articulo()+"="+item.getDesc_articulo());
+        an_presupuesto.cod_articulo = item.getCod_articulo();
+        an_presupuesto.nom_articulo = item.getDesc_articulo();
         an_presupuesto.precio = item.getPrecio();
+        Log.e("precio xxx", String.valueOf(item.getPrecio()));
         finish();
     }
 

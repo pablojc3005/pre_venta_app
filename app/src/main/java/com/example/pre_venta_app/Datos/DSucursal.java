@@ -54,9 +54,9 @@ public class DSucursal {
             Log.e("getDes_sucursal ", c.getDes_sucursal());
             pst.setString(4, c.getDireccion());
             Log.e("getDireccion ", c.getDireccion());
-            pst.registerOutParameter(6, Types.VARCHAR);
+            pst.registerOutParameter(5, Types.VARCHAR);
             pst.execute();
-            rpta = pst.getString(6);
+            rpta = pst.getString(5);
             Log.e("rpta ", rpta);
             cn.close();
 
@@ -66,7 +66,7 @@ public class DSucursal {
         return rpta;
     }
 
-    public static String Actualizar_cliente(Sucursal c) {
+    public static String Actualizar_sucursal(Sucursal c) {
         String rpta = null;
         Connection cn = null;
         CallableStatement pst = null;
@@ -82,9 +82,9 @@ public class DSucursal {
             Log.e("getDes_sucursal ", c.getDes_sucursal());
             pst.setString(4, c.getDireccion());
             Log.e("getDireccion ", c.getDireccion());
-            pst.registerOutParameter(6, Types.VARCHAR);
+            pst.registerOutParameter(5, Types.VARCHAR);
             pst.execute();
-            rpta = pst.getString(6);
+            rpta = pst.getString(5);
             Log.e("rpta ", rpta);
             cn.close();
 

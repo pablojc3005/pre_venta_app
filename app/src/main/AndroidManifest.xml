@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Presentacion.an_presupuesto"></activity>
+        <activity android:name=".Presentacion.an_lista_sucursal"></activity>
+        <activity android:name=".Presentacion.an_presupuesto" />
         <activity android:name=".Presentacion.an_transportista" />
         <activity
             android:name=".Presentacion.an_lista_productos"
@@ -28,6 +29,7 @@
         <activity android:name=".Presentacion.an_lista_clientes" />
         <activity android:name=".Presentacion.an_lista_transportita" />
         <activity android:name=".Presentacion.an_cliente" />
+        <activity android:name=".Presentacion.an_sucursal" />
         <activity android:name=".Presentacion.an_login" />
         <activity android:name=".Presentacion.an_menu">
             <intent-filter>

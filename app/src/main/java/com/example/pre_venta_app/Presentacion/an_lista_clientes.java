@@ -51,7 +51,7 @@ public class an_lista_clientes extends AppCompatActivity implements adp_lista_cl
         });
 
         // SI SOLO ES LISTA SE OCULTA EK BOTON FLOTANTE
-        if (an_presupuesto.est_seleccion_cliente){
+        if (an_presupuesto.est_seleccion_cliente || an_sucursal.est_seleccion_cliente2){
             fab.hide();
         }
     }
@@ -91,8 +91,14 @@ public class an_lista_clientes extends AppCompatActivity implements adp_lista_cl
             an_presupuesto.tvcod_cliente.setText(item.getCod_cliente());
             an_presupuesto.tvruc.setText(item.getRuc());
             an_presupuesto.tvcliente.setText(item.getDes_cliente());
+        }else if(an_sucursal.est_seleccion_cliente2){
+            an_sucursal.tvcod_cliente.setText(item.getCod_cliente());
+            an_sucursal.tvdes_cliente.setText(item.getDes_cliente());
         }
+
         an_presupuesto.est_seleccion_cliente = false;
+        an_sucursal.est_seleccion_cliente2 = false;
+
         finish();
     }
 
