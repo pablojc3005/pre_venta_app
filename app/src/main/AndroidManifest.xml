@@ -36,8 +36,8 @@
         <activity android:name=".Presentacion.an_lista_transportita" />
         <activity android:name=".Presentacion.an_cliente" />
         <activity android:name=".Presentacion.an_sucursal" />
-        <activity android:name=".Presentacion.an_login" />
-        <activity android:name=".Presentacion.an_menu">
+        <activity android:name=".Presentacion.an_menu" />
+        <activity android:name=".Presentacion.an_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
