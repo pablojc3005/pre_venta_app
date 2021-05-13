@@ -20,7 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Presentacion.an_lista_sucursal"></activity>
-        <activity android:name=".Presentacion.an_presupuesto" />
+
+        <activity android:name=".Presentacion.an_presupuesto">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".Presentacion.an_lista_productos" />
+        </activity>
+
         <activity android:name=".Presentacion.an_transportista" />
         <activity
             android:name=".Presentacion.an_lista_productos"

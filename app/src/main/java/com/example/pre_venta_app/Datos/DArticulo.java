@@ -64,10 +64,14 @@ public class DArticulo {
         return result;
     }
 
-    public static Float Precio_articulo(String cod_articulo){
-        float result = 0;
-        //String sql = "select SalFactor1 from oitm where rtrim(ltrim(itemcode)) = rtrim(ltrim(?));";
-        String sql = "exec USP_STOCK_PRECIO ?;";
+    public static double Precio_articulo(String cod_articulo){
+        double result = 0;
+        String sql = "SELECT Kardex.Precio  \n" +
+                "       FROM Articulos, UnidadMedida, Kardex, Almacen \n" +
+                "       WHERE UnidadMedida.CodUmedida = Articulos.UnimedArt and\n" +
+                "       ( Articulos.CodArticulo = Kardex.CodArticulo ) and  \n" +
+                "       ( Kardex.Cod_Almacen = Almacen.Cod_almacen ) and  \n" +
+                "       ( ( Kardex.Sec = 9999999 ) AND  Kardex.Cod_Almacen = 1 ) and Kardex.CodArticulo = ?;";
 
         ResultSet rs;
         try {
@@ -77,7 +81,7 @@ public class DArticulo {
             Log.e("cod_articulo", cod_articulo);
             rs = pst.executeQuery();
             rs.next();
-            result = rs.getFloat(1);
+            result = rs.getDouble(1);
             Log.e("precio", rs.toString());
             cn.close();
         }

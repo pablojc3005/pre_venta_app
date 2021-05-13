@@ -56,8 +56,6 @@ public class DGuia {
                 System.out.println("Secuencia "+ d.getSecuencia());
                 pst3.setString(3, d.getCod_articulo());
                 System.out.println("Cod_articulo "+ d.getCod_articulo());
-                /*pst3.setString(4, d.getArticulo());
-                System.out.println("Desc_articulo "+ d.getArticulo());*/
                 pst3.setString(4, d.getCantidad());
                 System.out.println("Cantidad "+ d.getCantidad());
                 pst3.setString(5, d.getPrecio());
@@ -70,6 +68,30 @@ public class DGuia {
             System.out.print("Error waxx "+ e.toString());
         }
         return r == 1 && r2 == 1 ? true:false;
+    }
+
+    public static Integer Ultimo_registro(){
+        int result = 0;
+        String sql = "select max(cod_registro) from Guias_Remision_Cab;";
+
+        ResultSet rs;
+        try {
+            Connection cn = Conexion.Conectar();
+            PreparedStatement pst = cn.prepareStatement(sql);
+            //pst.setString(1,cod_articulo);
+            rs = pst.executeQuery();
+            rs.next();
+            result = rs.getInt(1);
+            cn.close();
+        }
+        catch (java.sql.SQLException e)
+        {
+            System.out.println("Excepcion 01 - CapturaId "+ e.toString());
+        }
+        catch (Exception e) {
+            System.out.println("Excepcion 02 - CapturaId "+ e.toString());
+        }
+        return result;
     }
 
     public static ArrayList<String> Lista_forma_pago() {

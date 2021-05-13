@@ -1,6 +1,7 @@
 package com.example.pre_venta_app.Presentacion;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.pre_venta_app.Adapter.adp_lista_articulos;
@@ -69,11 +70,7 @@ public class an_lista_productos extends AppCompatActivity implements adp_lista_a
 
     @Override
     public void itemClick(Articulo item) {
-        //an_presupuesto.etcod_Articulo.setText(item.getCod_articulo()+"="+item.getDesc_articulo());
-        an_presupuesto.cod_articulo = item.getCod_articulo();
-        an_presupuesto.nom_articulo = item.getDesc_articulo();
-        an_presupuesto.precio = item.getPrecio();
-        Log.e("precio xxx", String.valueOf(item.getPrecio()));
+        an_presupuesto.etcod_Articulo.setText(item.getCod_articulo()+"="+item.getDesc_articulo());
         finish();
     }
 
