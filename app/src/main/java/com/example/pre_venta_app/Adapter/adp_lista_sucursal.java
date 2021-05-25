@@ -72,14 +72,14 @@ public class adp_lista_sucursal extends RecyclerView.Adapter<adp_lista_sucursal.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 items.clear();
                 List<Sucursal> collect = originalItems.stream()
-                        .filter(i -> i.getDes_sucursal().toLowerCase().contains(strSearch))
+                        .filter(i -> i.getDes_sucursal().toUpperCase().contains(strSearch))
                         .collect(Collectors.toList());
                 items.addAll(collect);
             }
             else {
                 items.clear();
                 for (Sucursal i : originalItems) {
-                    if (i.getDes_sucursal().toLowerCase().contains(strSearch)) {
+                    if (i.getDes_sucursal().toUpperCase().contains(strSearch)) {
                         items.add(i);
                     }
                 }

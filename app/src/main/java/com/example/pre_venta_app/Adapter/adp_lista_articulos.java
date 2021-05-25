@@ -71,14 +71,14 @@ public class adp_lista_articulos extends RecyclerView.Adapter<adp_lista_articulo
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 items.clear();
                 List<Articulo> collect = originalItems.stream()
-                        .filter(i -> i.getDesc_articulo().toLowerCase().contains(strSearch))
+                        .filter(i -> i.getDesc_articulo().toUpperCase().contains(strSearch)) // toLowerCase - minuscula
                         .collect(Collectors.toList());
                 items.addAll(collect);
             }
             else {
                 items.clear();
                 for (Articulo i : originalItems) {
-                    if (i.getDesc_articulo().toLowerCase().contains(strSearch)) {
+                    if (i.getDesc_articulo().toUpperCase().contains(strSearch)) {
                         items.add(i);
                     }
                 }

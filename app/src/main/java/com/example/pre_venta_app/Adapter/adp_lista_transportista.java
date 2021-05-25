@@ -79,14 +79,14 @@ public class adp_lista_transportista extends RecyclerView.Adapter<adp_lista_tran
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 items.clear();
                 List<Transportista> collect = originalItems.stream()
-                        .filter(i -> i.getDes_transportista().toLowerCase().contains(strSearch))
+                        .filter(i -> i.getDes_transportista().toUpperCase().contains(strSearch))
                         .collect(Collectors.toList());
                 items.addAll(collect);
             }
             else {
                 items.clear();
                 for (Transportista i : originalItems) {
-                    if (i.getDes_transportista().toLowerCase().contains(strSearch)) {
+                    if (i.getDes_transportista().toUpperCase().contains(strSearch)) {
                         items.add(i);
                     }
                 }

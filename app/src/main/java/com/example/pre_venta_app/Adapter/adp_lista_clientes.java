@@ -80,14 +80,14 @@ public class adp_lista_clientes extends RecyclerView.Adapter<adp_lista_clientes.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 items.clear();
                 List<Cliente> collect = originalItems.stream()
-                        .filter(i -> i.getDes_cliente().toLowerCase().contains(strSearch))
+                        .filter(i -> i.getDes_cliente().toUpperCase().contains(strSearch))
                         .collect(Collectors.toList());
                 items.addAll(collect);
             }
             else {
                 items.clear();
                 for (Cliente i : originalItems) {
-                    if (i.getDes_cliente().toLowerCase().contains(strSearch)) {
+                    if (i.getDes_cliente().toUpperCase().contains(strSearch)) {
                         items.add(i);
                     }
                 }
