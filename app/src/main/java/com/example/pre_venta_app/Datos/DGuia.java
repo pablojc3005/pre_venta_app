@@ -2,6 +2,7 @@ package com.example.pre_venta_app.Datos;
 
 import android.util.Log;
 
+import com.example.pre_venta_app.Entidad.Cliente;
 import com.example.pre_venta_app.Entidad.Detalle_guia;
 import com.example.pre_venta_app.Entidad.Guia;
 
@@ -105,6 +106,34 @@ public class DGuia {
             {
                 lista.add(rs.getString(1)+" - "+rs.getString(2));
             }
+        }
+        catch (java.sql.SQLException e)
+        {
+            Log.e("Excepcion 01", e.toString());
+        }
+        catch (Exception e) {
+            Log.e("Excepcion 02", e.toString());
+        }
+        return  lista;
+    }
+
+    public static ArrayList<Guia> Lista_presupuesto() {
+        ArrayList<Guia> lista = new ArrayList<>();
+        Connection cn = Conexion.Conectar();
+        String sql = "select g.Cod_Registro, convert(varchar, g.Fecha_guia, 101) as fecha, g.Codcliente, c.RucCliente, c.DesCliente, \n" +
+                     "g.Codtransportis, t.DesTransportis, g.CodFormaPago,  g.total \n" +
+                     "from Guias_Remision_Cab g \n" +
+                     "inner join Clientes c on g.Codcliente = c.CodCliente\n" +
+                     "inner join Trasnportistas t on g.Codtransportis = t.CodTransportis\n" +
+                     "where year(g.Fecha_guia) = year(getdate());";
+        try {
+            PreparedStatement pst = cn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next())
+            {
+                lista.add(new Guia(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDouble(9)));
+            }
+            Log.e("lista presupuesto : ", lista.toString());
         }
         catch (java.sql.SQLException e)
         {

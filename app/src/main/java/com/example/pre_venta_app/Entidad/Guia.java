@@ -1,14 +1,19 @@
 package com.example.pre_venta_app.Entidad;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Guia {
+public class Guia implements Serializable {
     int cod_registro;
     String cod_almacen;
     String tipo_movimiento;
+    String fecha_registro ;
     String Codcliente ;
+    String ruc ;
+    String Descliente ;
     String cod_moneda;
     String Codtransportis;
+    String Destransportis;
     String CodFormaPago;
     Double sub_total;
     Double igv;
@@ -114,6 +119,38 @@ public class Guia {
         this.tipo_guia_imp = tipo_guia_imp;
     }
 
+    public String getFecha_registro() {
+        return fecha_registro;
+    }
+
+    public void setFecha_registro(String fecha_registro) {
+        this.fecha_registro = fecha_registro;
+    }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
+    }
+
+    public String getDescliente() {
+        return Descliente;
+    }
+
+    public void setDescliente(String descliente) {
+        Descliente = descliente;
+    }
+
+    public String getDestransportis() {
+        return Destransportis;
+    }
+
+    public void setDestransportis(String destransportis) {
+        Destransportis = destransportis;
+    }
+
     public List<Detalle_guia> getLista_detalle() {
         return lista_detalle;
     }
@@ -139,5 +176,15 @@ public class Guia {
         this.tipo_guia_imp = tipo_guia_imp;
     }
 
-
+    public Guia(int cod_registro, String fecha_registro, String codcliente, String ruc, String descliente, String codtransportis, String destransportis, String codFormaPago, Double total) {
+        this.cod_registro = cod_registro;
+        this.fecha_registro = fecha_registro;
+        Codcliente = codcliente;
+        this.ruc = ruc;
+        Descliente = descliente;
+        Codtransportis = codtransportis;
+        Destransportis = destransportis;
+        CodFormaPago = codFormaPago;
+        this.total = total;
+    }
 }

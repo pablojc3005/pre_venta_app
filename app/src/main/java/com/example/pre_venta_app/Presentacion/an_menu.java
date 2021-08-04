@@ -44,7 +44,7 @@ public class an_menu extends AppCompatActivity {
         cv_presupuesto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent f = new Intent(context, an_presupuesto.class);
+                Intent f = new Intent(context, an_lista_presupuesto.class);
                 startActivity(f);
             }
         });

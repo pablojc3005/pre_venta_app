@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pre_venta_app.Adapter.adp_lista_presupuesto;
 import com.example.pre_venta_app.Datos.DArticulo;
 import com.example.pre_venta_app.Datos.DGuia;
 import com.example.pre_venta_app.Datos.DTransportista;
@@ -50,6 +51,7 @@ public class an_presupuesto extends AppCompatActivity {
     ArrayList<Detalle_guia> arreglo_det_guia = new ArrayList<Detalle_guia>();
     ArrayAdapter<Detalle_guia> adaptador_guia;
     Guia g = null;
+    private Guia gu;
     Spinner spforma_pago;
     ListView lvlista_articulo;
     String mensaje = "";
@@ -91,6 +93,16 @@ public class an_presupuesto extends AppCompatActivity {
         myAdapter_forma_pago = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, DGuia.Lista_forma_pago());
         myAdapter_forma_pago.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spforma_pago.setAdapter(myAdapter_forma_pago);
+
+
+        if (adp_lista_presupuesto.flag_modificar) {
+            gu = (Guia) getIntent().getExtras().getSerializable("itemDetail");
+            tvcod_cliente.setText(gu.getCodcliente());
+            /*tvdes_cliente.setText(g.getDesc_cliente());
+            tvcod_sucursal.setText(g.getCod_sucursal());
+            tvdes_sucursal.setText(g.getDes_sucursal());
+            tvdireccion.setText(g.getDireccion());*/
+        }
 
         btncliente.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,7 +268,7 @@ public class an_presupuesto extends AppCompatActivity {
             d.setSecuencia(String.valueOf(item));
             d.setCod_articulo(cod_articulo);
             d.setArticulo(nom_articulo);
-            d.setCantidad("1.00");
+            d.setCantidad("1");
             d.setPrecio(String.format("%.2f",precio));
             arreglo_det_guia.add(d);
         }
@@ -400,21 +412,21 @@ public class an_presupuesto extends AppCompatActivity {
     public void showInputBox(final Detalle_guia olditem, final int index)
     {
         final Dialog dlg = new Dialog(context);
-        //dlg.setTitle("INGRESAR LA CANTIDAD");
+        dlg.setTitle("INGRESAR LA CANTIDAD");
         dlg.setContentView(R.layout.item_input_cantidad);
         final EditText ed_cantidad = (EditText)dlg.findViewById(R.id.et_cantidad);
-        final EditText ed_precio   = (EditText)dlg.findViewById(R.id.et_precio);
+        //final EditText ed_precio   = (EditText)dlg.findViewById(R.id.et_precio);
 
         Button btn_aceptar = (Button)dlg.findViewById(R.id.btnaceptar);
         ed_cantidad.setText(String.valueOf(olditem.getCantidad()));
-        ed_precio.setText(String.valueOf(olditem.getPrecio()));
+        //ed_precio.setText(String.valueOf(olditem.getPrecio()));
 
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Detalle_guia ta = arreglo_det_guia.get(index);
                 ta.setCantidad(ed_cantidad.getText().toString());
-                ta.setPrecio(ed_precio.getText().toString());
+                //ta.setPrecio(ed_precio.getText().toString());
                 arreglo_det_guia.set(index, ta);
                 adaptador_guia.notifyDataSetChanged();
                 Total = 0d;
