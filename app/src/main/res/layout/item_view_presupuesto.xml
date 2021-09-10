@@ -51,6 +51,30 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvcod_presu"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:hint="N° PRES"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvfecha_presu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="FECHA"
+                        android:textColor="@color/material_blue_grey_95"
+                        android:textSize="15dp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
                         android:id="@+id/tvcod_cliente"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
@@ -63,6 +87,7 @@
                         android:id="@+id/tvcliente"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
                         android:hint="CLIENTE"
                         android:textColor="@color/material_blue_grey_95"
                         android:textSize="15dp"
@@ -75,34 +100,24 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvcod_sucursal"
+                        android:id="@+id/tvcod_moneda"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:hint="COD SUC"
+                        android:hint="MON"
                         android:textColor="@android:color/black"
                         android:textSize="14dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvsucursal"
+                        android:id="@+id/tvmonto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
-                        android:hint="SUCURSAL"
+                        android:hint="IMPORTE"
                         android:textColor="@color/material_blue_grey_95"
                         android:textSize="15dp"
                         android:textStyle="bold"></TextView>
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvdireccion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:hint="DIRECCION"
-                    android:textColor="@color/material_blue_grey_95"
-                    android:textSize="15dp"
-                    android:textStyle="bold"></TextView>
 
             </LinearLayout>
 

@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pre_venta_app.Adapter.adp_lista_clientes;
 import com.example.pre_venta_app.Adapter.adp_lista_presupuesto;
 import com.example.pre_venta_app.Datos.DArticulo;
 import com.example.pre_venta_app.Datos.DGuia;
@@ -97,11 +98,35 @@ public class an_presupuesto extends AppCompatActivity {
 
         if (adp_lista_presupuesto.flag_modificar) {
             gu = (Guia) getIntent().getExtras().getSerializable("itemDetail");
+            final TextView tvcod_presupuesto = (TextView) findViewById(R.id.tvnro_presupuesto);
+            tvcod_presupuesto.setText(String.valueOf(gu.getCod_registro()));
             tvcod_cliente.setText(gu.getCodcliente());
-            /*tvdes_cliente.setText(g.getDesc_cliente());
-            tvcod_sucursal.setText(g.getCod_sucursal());
-            tvdes_sucursal.setText(g.getDes_sucursal());
-            tvdireccion.setText(g.getDireccion());*/
+            tvruc.setText(gu.getRuc());
+            tvcliente.setText(gu.getDescliente());
+            tvtransportista.setText(gu.getDestransportis());
+            for (int i = 0; i < myAdapter_forma_pago.getCount() ; i++)
+            {
+                if (myAdapter_forma_pago.getItem(i).substring(0,2).equals(gu.getCodFormaPago()))
+                {
+                    spforma_pago.setSelection(i);
+                }
+            }
+
+            arreglo_det_guia = DGuia.Lista_presupuesto_det(gu.getCod_registro());
+            for (int j = 0; j<arreglo_det_guia.size(); j++)
+            {
+                adaptador_guia = new myListAdapter_detalle_guia();
+                lvlista_articulo.setAdapter(adaptador_guia);
+                Total += (Double.parseDouble(arreglo_det_guia.get(j).getPrecio()) * Double.parseDouble(arreglo_det_guia.get(j).getCantidad()));
+            }
+
+            Igv = Total * 0.18;
+            Subtotal = Total - Igv;
+
+            tvsub_total.setText( String.format("%.2f", Subtotal));
+            tvigv.setText(String.format("%.2f", Igv));
+            tvtotal.setText(String.format("%.2f",Total));
+
         }
 
         btncliente.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +220,7 @@ public class an_presupuesto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                adp_lista_presupuesto.flag_modificar = false;
             }
         });
 

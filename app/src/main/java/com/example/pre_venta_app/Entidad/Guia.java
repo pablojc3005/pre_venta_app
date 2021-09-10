@@ -165,10 +165,10 @@ public class Guia implements Serializable {
         this.cod_registro = cod_registro;
         this.cod_almacen = cod_almacen;
         this.tipo_movimiento = tipo_movimiento;
-        Codcliente = codcliente;
+        this.Codcliente = codcliente;
         this.cod_moneda = cod_moneda;
-        Codtransportis = codtransportis;
-        CodFormaPago = codFormaPago;
+        this.Codtransportis = codtransportis;
+        this.CodFormaPago = codFormaPago;
         this.sub_total = sub_total;
         this.igv = igv;
         this.total = total;
@@ -176,15 +176,16 @@ public class Guia implements Serializable {
         this.tipo_guia_imp = tipo_guia_imp;
     }
 
-    public Guia(int cod_registro, String fecha_registro, String codcliente, String ruc, String descliente, String codtransportis, String destransportis, String codFormaPago, Double total) {
+    public Guia(int cod_registro, String fecha_registro, String codcliente, String ruc, String descliente, String codtransportis, String destransportis, String codFormaPago, String cod_moneda, Double total) {
         this.cod_registro = cod_registro;
         this.fecha_registro = fecha_registro;
-        Codcliente = codcliente;
+        this.Codcliente = codcliente;
         this.ruc = ruc;
-        Descliente = descliente;
-        Codtransportis = codtransportis;
-        Destransportis = destransportis;
-        CodFormaPago = codFormaPago;
+        this.Descliente = descliente;
+        this.Codtransportis = codtransportis;
+        this.Destransportis = destransportis;
+        this.CodFormaPago = codFormaPago;
+        this.cod_moneda = cod_moneda;
         this.total = total;
     }
 }

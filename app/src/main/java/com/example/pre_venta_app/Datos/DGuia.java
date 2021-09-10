@@ -120,18 +120,47 @@ public class DGuia {
     public static ArrayList<Guia> Lista_presupuesto() {
         ArrayList<Guia> lista = new ArrayList<>();
         Connection cn = Conexion.Conectar();
-        String sql = "select g.Cod_Registro, convert(varchar, g.Fecha_guia, 101) as fecha, g.Codcliente, c.RucCliente, c.DesCliente, \n" +
-                     "g.Codtransportis, t.DesTransportis, g.CodFormaPago,  g.total \n" +
+        String sql = "select g.Cod_Registro, convert(varchar, g.Fecha_guia, 105) as fecha, g.Codcliente, c.RucCliente, c.DesCliente, \n" +
+                     "g.Codtransportis, t.DesTransportis, g.CodFormaPago, m.Des_moneda_abrev,  g.total \n" +
                      "from Guias_Remision_Cab g \n" +
                      "inner join Clientes c on g.Codcliente = c.CodCliente\n" +
                      "inner join Trasnportistas t on g.Codtransportis = t.CodTransportis\n" +
-                     "where year(g.Fecha_guia) = year(getdate());";
+                     "inner join Monedas m on g.Cod_moneda = m.Cod_moneda \n" +
+                     "where year(g.Fecha_guia) = year(getdate())\n" +
+                     "order by g.Fecha_guia desc;";
         try {
             PreparedStatement pst = cn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next())
             {
-                lista.add(new Guia(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDouble(9)));
+                lista.add(new Guia(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getDouble(10)));
+            }
+            Log.e("lista presupuesto : ", lista.toString());
+        }
+        catch (java.sql.SQLException e)
+        {
+            Log.e("Excepcion 01", e.toString());
+        }
+        catch (Exception e) {
+            Log.e("Excepcion 02", e.toString());
+        }
+        return  lista;
+    }
+
+    public static ArrayList<Detalle_guia> Lista_presupuesto_det(int cod_registro) {
+        ArrayList<Detalle_guia> lista = new ArrayList<>();
+        Connection cn = Conexion.Conectar();
+        String sql = "select g.Secuencia, g.CodArticulo, a.DesArticulo, g.Cantidad, g.Precio  from Guias_Remision_Det g\n" +
+                "inner join Articulos a on g.CodArticulo = a.CodArticulo\n" +
+                "where g.Cod_registro = ?;";
+        try {
+            PreparedStatement pst = cn.prepareStatement(sql);
+            pst.setInt(1, cod_registro);
+            System.out.println("cod_registro "+ cod_registro);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next())
+            {
+                lista.add(new Detalle_guia(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
             Log.e("lista presupuesto : ", lista.toString());
         }

@@ -93,4 +93,12 @@ public class Detalle_guia {
         this.cantidad = cantidad;
         this.precio = precio;
     }
+
+    public Detalle_guia(String secuencia, String cod_articulo, String articulo, String cantidad, String precio) {
+        this.secuencia = secuencia;
+        this.cod_articulo = cod_articulo;
+        this.articulo = articulo;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
 }

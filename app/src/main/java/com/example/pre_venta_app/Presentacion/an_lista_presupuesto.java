@@ -77,17 +77,17 @@ public class an_lista_presupuesto extends AppCompatActivity implements adp_lista
             itemLists.add(new Guia(Lista.get(i).getCod_registro(), Lista.get(i).getFecha_registro(),
                                    Lista.get(i).getCodcliente(), Lista.get(i).getRuc(),Lista.get(i).getDescliente(),
                                    Lista.get(i).getCodtransportis(),Lista.get(i).getDestransportis(),Lista.get(i).getCodFormaPago(),
-                                   Lista.get(i).getTotal()));
+                                   Lista.get(i).getCod_moneda(), Lista.get(i).getTotal()));
         }
         return itemLists;
     }
 
     @Override
     public void itemClick(Guia item) {
-        /*if (an_presupuesto.est_seleccion_cliente){
-            an_presupuesto.tvcod_cliente.setText(item.getCod_cliente());
+       /*if (an_presupuesto.es){
+            an_presupuesto.tvcod_cliente.setText(item.getCodcliente());
             an_presupuesto.tvruc.setText(item.getRuc());
-            an_presupuesto.tvcliente.setText(item.getDes_cliente());
+            an_presupuesto.tvcliente.setText(item.getDescliente());
         }*/
         //an_presupuesto.est_seleccion_cliente = false;
         finish();
